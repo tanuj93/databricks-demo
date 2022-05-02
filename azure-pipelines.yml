@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- bash: az --version
+- bash: az --3.163.1
   displayName: 'Show Azure CLI version'
 
 - task: UsePythonVersion@0
