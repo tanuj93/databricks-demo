@@ -6,7 +6,7 @@ trigger:
 - main
 
 pool:
-  name: Hosted Ubuntu 1804
+  name: Hosted Ubuntu 18.04
 
 steps:
 - task: UsePythonVersion@0
