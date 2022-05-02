@@ -10,6 +10,19 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- bash: az --version
+  displayName: 'Show Azure CLI version'
+
+- bash: az devops configure --defaults organization=$(System.TeamFoundationCollectionUri) project=$(System.TeamProject) --use-git-aliases true
+  displayName: 'Set default Azure DevOps organization and project'
+
+- bash: |
+    az pipelines build list
+    git pr list
+  displayName: 'Show build list and PRs'
+  env:
+    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+
 - task: UsePythonVersion@0
   displayName: 'Use Python 3.8'
   inputs:
@@ -19,6 +32,7 @@ steps:
     pip install pytest requests setuptools wheel
     pip install -U databricks-connect==6.4.*
   displayName: 'Load Python Dependencies'
+
 
 - script: |
     echo "y
