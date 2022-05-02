@@ -6,7 +6,8 @@ trigger:
 - main
 
 pool:
-  name: Hosted Ubuntu 1804
+##  name: Hosted Ubuntu 1804
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: UsePythonVersion@0
