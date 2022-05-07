@@ -45,13 +45,27 @@ steps:
   displayName: 'Build Python Wheel for Libs'
 
 - script: |
-    python -m pytest --junit-xml=$(Build.Repository.LocalPath)/logs/TEST-LOCAL.xml $(Build.Repository.LocalPath)/test/test*.py || true
-    ls logs
-  displayName: 'Run Python Unit Tests for library code'
+    git diff --name-only --diff-filter=AMR HEAD^1 HEAD | xargs -I '{}' cp --parents -r '{}' $(Build.BinariesDirectory)
 
+    mkdir -p $(Build.BinariesDirectory)/package/libs
+    cp $(Build.Repository.LocalPath)/package/dist/*.* $(Build.BinariesDirectory)/package/libs
 
-- task: PublishTestResults@2
+    mkdir -p $(Build.BinariesDirectory)/cicd-scripts
+    cp $(Build.Repository.LocalPath)/cicd-scripts/*.* $(Build.BinariesDirectory)/cicd-scripts
+
+    mkdir -p $(Build.BinariesDirectory)/notebooks
+    cp $(Build.Repository.LocalPath)/notebooks/*.* $(Build.BinariesDirectory)/notebooks
+
+  displayName: 'Get Changes'
+
+- task: ArchiveFiles@2
   inputs:
-    testResultsFiles: '**/TEST-*.xml'
-    failTaskOnFailedTests: true
-    publishRunAttachments: true
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'DatabricksBuild'
