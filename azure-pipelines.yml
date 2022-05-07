@@ -49,6 +49,7 @@ steps:
     ls logs
   displayName: 'Run Python Unit Tests for library code'
 
+
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/TEST-*.xml'
