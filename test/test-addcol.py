@@ -24,7 +24,7 @@ class TestAppendCol(object):
         ]
         expected_df = get_spark().createDataFrame(
             expected_data,
-            ["first_name", "last_name", "email", "status"]
+            ["first_name", "last_name", "email"]
         )
 
         assert(expected_df.collect() == actual_df.collect())
