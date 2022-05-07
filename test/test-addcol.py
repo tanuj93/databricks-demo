@@ -2,7 +2,7 @@
 import pytest
 
 from test.spark import get_spark
-from test.appendcol import with_status
+from test.addcol import with_status
 
 class TestAppendCol(object):
 
