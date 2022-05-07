@@ -19,12 +19,12 @@ class TestAppendCol(object):
         actual_df = with_status(source_df)
 
         expected_data = [
-            ("pete", "pan", "peter.pan@databricks.com"),
-            ("jason", "argonaut", "jason.argonaut@databricks.com")
+            ("pete", "pan", "peter.pan@databricks.com", "checked"),
+            ("jason", "argonaut", "jason.argonaut@databricks.com", "checked")
         ]
         expected_df = get_spark().createDataFrame(
             expected_data,
-            ["first_name", "last_name", "email"]
+            ["first_name", "last_name", "email", "status"]
         )
 
         assert(expected_df.collect() == actual_df.collect())
