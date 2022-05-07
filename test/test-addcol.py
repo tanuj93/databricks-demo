@@ -19,8 +19,8 @@ class TestAppendCol(object):
         actual_df = with_status(source_df)
 
         expected_data = [
-            ("pete", "pan", "peter.pan@databricks.com", "checked"),
-            ("jason", "argonaut", "jason.argonaut@databricks.com", "checked")
+            ("pete", "pan", "peter.pan@databricks.com"),
+            ("jason", "argonaut", "jason.argonaut@databricks.com")
         ]
         expected_df = get_spark().createDataFrame(
             expected_data,
